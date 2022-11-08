@@ -14,6 +14,7 @@
   Форма фильтра
   Шапка каталога
   Список карточек
+    Звёздочки
   Пагинация
 Футер
 
@@ -23,6 +24,7 @@
   Форма
   Селект
   Кнопки вида
+Модальное окно
 Проверка focus-visible
 */
 
@@ -117,7 +119,8 @@ button-toggle,
 .navigation-button-link,
 .filter-button-submit,
 .filter-button-reset,
-.card-button {
+.card-button,
+.modal-info {
   font-size: 16px;
   line-height: 20px;
   text-decoration-line: none;
@@ -125,7 +128,9 @@ button-toggle,
 }
 
 .navigation-link,
-.filter-legend {
+.filter-legend,
+.modal-form-label,
+.modal-submit-button {
   font-weight: 700;
   font-size: 20px;
   line-height: 24px;
@@ -191,7 +196,8 @@ button-toggle,
 }
 
 .filter-cost,
-.filter-costs {
+.filter-costs,
+.modal-data {
   font: inherit;
   font-size: 18px;
   line-height: 24px;
@@ -211,7 +217,9 @@ button-toggle,
   line-height: 78px;
 }
 
-.breadcrumbs-link {
+.breadcrumbs-link,
+.modal-form-error,
+.modal-form-message {
   font-size: 16px;
   line-height: 21px;
   text-decoration-line: none;
@@ -219,6 +227,12 @@ button-toggle,
 
 .catalog-select {
   font: inherit;
+}
+
+.modal-count-number {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 20px;
 }
 
 /* Цвета и изображения ************************************/
@@ -623,8 +637,6 @@ button-toggle,
   opacity: 0.3;
 }
 
-
-
 .filter-group-button {
   width: 191px;
   margin: 0;
@@ -727,6 +739,12 @@ button-toggle,
   text-align: center;
 }
 
+/* Звёздочки **********************************************/
+
+.one-stars {
+  width: 24px;
+}
+
 .two-stars {
   width: 48px;
 }
@@ -737,6 +755,10 @@ button-toggle,
 
 .four-star {
   width: 96px;
+}
+
+five-star {
+  width: 120px;
 }
 
 /* Пагинация **********************************************/
@@ -861,6 +883,13 @@ button-toggle,
 
 /* Интерактивные элементы *********************************/
 
+.navigation-logo-link:focus-visible,
+.navigation-link:focus-visible,
+.navigation-user-link:focus-visible,
+.catalog-card-link:focus-visible {
+  outline: 3px solid #83B3D3;
+}
+
 /* Кнопки *************************************************/
 
 .button-brown {
@@ -914,6 +943,10 @@ button-toggle,
 .button-brown:disabled,
 .button-blue:disabled,
 .button-green:disabled {
+  background-color: #E5E5E5;
+}
+
+.button-disabled {
   background-color: #E5E5E5;
 }
 
@@ -1012,7 +1045,7 @@ button-toggle,
 }
 
 .filter-checkbox:focus-visible + label span:first-child,
-.filter-radio:focus-visible + .filter-label-radio,
+.filter-radio:focus-visible + label span:first-child,
 .filter-button-reset:focus-visible,
 .breadcrumbs-link:focus-visible {
   color: #ffffff;
@@ -1036,8 +1069,7 @@ button-toggle,
 
 .filter-cost::-webkit-outer-spin-button,
 .filter-cost::-webkit-inner-spin-button {
-  appearance: none;
-  margin: 0;
+  display: none;
 }
 
 .filter-cost:hover,
@@ -1137,15 +1169,16 @@ button-toggle,
 }
 
 .catalog-select:hover,
-.catalog-select:focus {
-  border: 2px solid #68A2CA;
+.catalog-select:focus-visible {
+  outline: 2px solid #68A2CA;
 }
 
 .catalog-select:active {
-  border: 2px solid #3F5E72;
+  outline: 2px solid #3F5E72;
 }
 
-.catalog-select:disabled {
+.catalog-select-disabled {
+  color: #000000;
   opacity: 0.3;
 }
 
@@ -1161,14 +1194,271 @@ button-toggle,
   border: 2px solid #000000;
 }
 
-.button-toggle:focus {
+.button-toggle:focus-visible {
   border: 2px solid #68A2CA;
+  outline: none;
 }
 
 .button-toggle-current,
 .button-toggle:active {
   border: 2px solid #000000;
 }
+
+/* Модальное окно *****************************************/
+
+.modal-container {
+  position: fixed;
+  display: grid;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(242, 242, 242, 0.8);
+  z-index: 1;
+}
+
+.modal-disabled {
+  display: none;
+}
+
+.modal {
+  position: relative;
+  width: 717px;
+  height: 576px;
+  box-sizing: border-box;
+  margin: auto;
+  padding: 64px 70px;
+  background: #FFFFFF;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+  border-radius: 30px;
+}
+
+.modal-close-button {
+  position: absolute;
+  top: 65px;
+  right: 52px;
+  color: #000000;
+  background: #F2F2F2;
+  border: none;
+  border-radius: 50%;
+  padding: 15px;
+  padding-bottom: 12px;
+}
+
+.modal-close-button:hover {
+  background-color: #E6E6E6;
+}
+
+.modal-close-button:focus-visible {
+  background-color: #E6E6E6;
+  outline: 3px solid #83B3D3;
+}
+
+.modal-close-button:active svg {
+  opacity: 0.3;
+}
+
+.modal-header {
+  text-align: left;
+  margin: 0;
+  margin-left: 0.5px;
+  margin-bottom: 64px;
+  word-spacing: -0.3px;
+}
+
+.modal-form {
+  display: grid;
+  grid-template-columns: 138px 109px 88px 131px 111px;
+  grid-template-rows: repeat(6, 48px) 60px;
+}
+
+.modal-form-label {
+  grid-column: 1/2;
+  text-transform: capitalize;
+  padding: 11px 1px;
+}
+
+.modal-data {
+  grid-column: 2/-1;
+  color: #000000;
+  background-color: #F2F2F2;
+  background-image: url('../images/icon/calendar.svg');
+  background-repeat: no-repeat;
+  background-position: 402px;
+  border: none;
+  border-radius: 4px;
+  padding-left: 19px;
+  letter-spacing: 0.1px;
+}
+
+.modal-data::placeholder {
+  opacity: 0.6;
+  letter-spacing: 0.1px;
+}
+
+.modal-data:hover,
+.modal-data:focus-visible {
+  background: #E6E6E6;
+  background-image: url('../images/icon/calendar.svg');
+  background-repeat: no-repeat;
+  background-position: 402px;
+}
+
+.modal-data:focus-visible {
+  outline: 3px solid #83B3D3;
+}
+
+.modal-data:active {
+  outline: 2px solid #000000;
+}
+
+.modal-form-error,
+.modal-form-message {
+  grid-column: 2/-1;
+}
+
+.modal-form-children {
+  position: relative;
+  grid-column: 4/5;
+  display: flex;
+  padding: 11px 1px;
+}
+
+.modal-count {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: #F2F2F2;
+  border-radius: 4px;
+}
+
+.modal-count-number {
+  width: 11px;
+  padding: 1px 10px 0;
+  margin: 0;
+  border: none;
+  background-color: #F2F2F2;
+  appearance: textfield;
+}
+
+.modal-count-number:focus-visible {
+  outline: none;
+}
+
+.modal-count-number::-webkit-outer-spin-button,
+.modal-count-number::-webkit-inner-spin-button {
+  display: none;
+  margin: 0;
+}
+
+.modal-count-button {
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  color: rgba(117, 97, 87, 0.3);
+  background-color: #F2F2F2;
+  border: none;
+  border-radius: 4px;
+}
+
+.modal-count-button:hover,
+.modal-count-button:focus-visible {
+  color: #000000;
+}
+
+.modal-count-button:focus-visible {
+  outline: 3px solid #82B3D3;
+}
+
+.modal-count-button:active {
+  color: rgba(0, 0, 0, 0.2);
+}
+
+.modal-link-info {
+  width: 20px;
+  height: 20px;
+  background-color: #83B3D3;
+  border-radius: 50%;
+  padding: 3px;
+  margin-left: 10px;
+}
+
+.modal-info {
+  position: absolute;
+  top: 52px;
+  left: -61px;
+  width: 256px;
+  box-sizing: border-box;
+  padding: 20px 18px 23px 22px;
+  color: #FFFFFF;
+  background-color: #333333;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  font-weight: 400;
+  text-transform: none;
+  display: none;
+}
+
+.modal-link-info:hover .modal-info,
+.modal-link-info:focus-visible .modal-info {
+  display: block;
+  outline: none;
+}
+
+.modal-link-info:focus-visible {
+  outline: none;
+}
+
+.modal-info::before {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 13px;
+  height: 13px;
+  top: -7px;
+  left: 121px;
+  background-color: #333333;
+  transform: rotate(45deg);
+}
+
+.modal-grown-count,
+.modal-children-count {
+  display: flex;
+}
+
+.modal-submit-button {
+  grid-column: 1/-1;
+  grid-row: 7/-1;
+  text-transform: uppercase;
+  color: #ffffff;
+  background: #83B3D3;
+  border: none;
+  border-radius: 10px;
+}
+
+.modal-submit-button:hover,
+.modal-submit-button:focus-visible {
+  background-color: #68A2CA;
+  outline: none;
+}
+
+.modal-submit-button:active {
+  color: rgba(255, 255, 255, 0.3);
+  outline: none;
+}
+
+.modal-form-error {
+  color: #FF5757;
+  margin: 0;
+  padding: 3px 20px;
+}
+
+.modal-form-message {
+  color: #333333;
+  margin: 0;
+  padding: 3px 20px;
+}
+
 
 /* Проверка focus-visible *********************************/
 
@@ -1179,7 +1469,9 @@ button-toggle,
     outline: none;
   }
 
-  .button-blue:focus {
+  .button-blue:focus,
+  .modal-submit-button:focus,
+  .modal-submit-button:focus {
     background-color: #68A2CA;
     outline: none;
   }
@@ -1197,6 +1489,7 @@ button-toggle,
     outline: 3px solid #83B3D3;
   }
 
+  .modal-count-button:focus,
   .filter-button-reset:focus {
     outline: 3px solid #83B3D3;
   }
@@ -1212,4 +1505,7 @@ button-toggle,
     appearance: textfield;
   }
 
+  .catalog-select:focus {
+    outline: 2px solid #68A2CA;
+  }
 }
